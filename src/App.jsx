@@ -9,6 +9,7 @@ function App() {
   const parentCanvasRef = useRef(null);
   const [penColourFromParent, setPenColour] = useState("black");
   const [penWidthFromParent, setPenWidth] = useState(5);
+  const [penEraserMode, setEraserMode] = useState(false);
   function handleOnChangePenColour(color) {
     setPenColour(color);
   }
@@ -16,12 +17,15 @@ function App() {
   function handleOnChangePenWidth(width) {
     setPenWidth(width);
   }
+  function handleOnChangeEraserMode(boolean){
+    setEraserMode (boolean)
+  }
 
   function handleClearCanvas() {
     const Pcanvas = parentCanvasRef.current
     const Pctx = Pcanvas.getContext("2d")
     Pctx.clearRect(0,0, Pcanvas.width, Pcanvas.height)
-
+console.log(penEraserMode)
 
   }
   return (
@@ -30,6 +34,7 @@ function App() {
         parentCanvasRef={parentCanvasRef}
         penColour={penColourFromParent}
         penWidth={penWidthFromParent}
+        eraserMode={penEraserMode}
       />
       {console.log(parentCanvasRef)}
 
@@ -37,6 +42,7 @@ function App() {
         onChangePenColour={handleOnChangePenColour}
         onChangePenWidth={handleOnChangePenWidth}
         onChangeClearCanvas={handleClearCanvas}
+        onChangeEraserMode={handleOnChangeEraserMode}
         penWithDisplayNumber = {penWidthFromParent}
         penColorDisplayName = {penColourFromParent}
       />

@@ -17,6 +17,9 @@ export default function NavTool({onChangePenColour, onChangePenWidth,  penWithDi
         <div>
             <button onClick={() => onChangeClearCanvas()}> Clear </button>
         </div>
+        <div>
+            <input type="checkbox" onChange = {(e) => onChangeEraserMode(e.target.checked)} />
+        </div>
         </>
     )
 }

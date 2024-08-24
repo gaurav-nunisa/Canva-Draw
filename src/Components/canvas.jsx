@@ -11,7 +11,15 @@ useEffect  (() => {
     const canvas =  childCanvasRef.current
     const ctx = canvas.getContext("2d");
 
-    ctx.strokeStyle = penColour;
+
+    if(eraserMode){
+      ctx.globalAlpha = 0.0
+    }else if (!eraserMode){
+      ctx.globalAlpha = 1
+      ctx.strokeStyle = penColour;
+    }
+
+
     ctx.lineWidth = penWidth;
 
 
