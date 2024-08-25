@@ -7,7 +7,7 @@ export default function SideBar({onchangeBGColor, onChangeDownloadImage}) {
         onChange={(e) => onchangeBGColor(e.target.value)}/>
       </div>
       <div>
-        <button onClick={onChangeDownloadImage()}>
+        <button onClick={()=>onChangeDownloadImage("image/png")}>
         Export as PNG
 
         </button>

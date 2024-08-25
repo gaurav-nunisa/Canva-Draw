@@ -13,11 +13,8 @@ function App() {
   const [penWidthFromParent, setPenWidth] = useState(5);
   const [penEraserMode, setEraserMode] = useState(false);
 
-
   const Pcanvas = parentCanvasRef.current;
 
-
-  
   function handleOnChangePenColour(color) {
     setPenColour(color);
   }
@@ -31,51 +28,59 @@ function App() {
 
   function handleClearCanvas() {
     const Pctx = Pcanvas.getContext("2d");
- 
+
     Pctx.clearRect(0, 0, Pcanvas.width, Pcanvas.height);
   }
-  function handleOnChangeBGColor(color){
+  function handleOnChangeBGColor(color) {
     setBGColor(color);
-    console.log(parentBgColor)
+    console.log(parentBgColor);
   }
-  function exportCanvas(format){
-    
-  if(Pcanvas){
-    const dataURL = Pcanvas.toDataURL();
-    const link = document.createElement("a")
-    link.herf = dataURL
-    link.download = `canvas_image.${format.split("/")[1]} `
-    document.body.appendChild(link);
-    link.click();
-    
-    // Remove the link from the body
-    document.body.removeChild(link);
-  }
-  console.log("This is " + Pcanvas)
+  function exportCanvas(format) {
+    if (Pcanvas) {
+      const dataURL = Pcanvas.toDataURL();
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download = `canvas_image.${format.split("/")[1]} `;
+      document.body.appendChild(link);
+      link.click();
+
+      // Remove the link from the body
+      document.body.removeChild(link);
+    }
+    console.log("This is " + Pcanvas);
   }
 
   return (
     <>
-      <Canvas
-        parentCanvasRef={parentCanvasRef}
-        penColour={penColourFromParent}
-        penWidth={penWidthFromParent}
-        eraserMode={penEraserMode}
-        backgroundColor={parentBgColor}
-      />
-      {console.log(parentCanvasRef)}
+      <div>
+        <div>
+          <Canvas
+            parentCanvasRef={parentCanvasRef}
+            penColour={penColourFromParent}
+            penWidth={penWidthFromParent}
+            eraserMode={penEraserMode}
+            backgroundColor={parentBgColor}
+          />
+        </div>
+        <div>
+          <NavTool
+            onChangePenColour={handleOnChangePenColour}
+            onChangePenWidth={handleOnChangePenWidth}
+            onChangeClearCanvas={handleClearCanvas}
+            onChangeEraserMode={handleOnChangeEraserMode}
+            penWithDisplayNumber={penWidthFromParent}
+            penColorDisplayName={penColourFromParent}
+            returnEraserMode={penEraserMode}
+          />
+        </div>
 
-      <NavTool
-        onChangePenColour={handleOnChangePenColour}
-        onChangePenWidth={handleOnChangePenWidth}
-        onChangeClearCanvas={handleClearCanvas}
-        onChangeEraserMode={handleOnChangeEraserMode}
-        penWithDisplayNumber={penWidthFromParent}
-        penColorDisplayName={penColourFromParent}
-        returnEraserMode={penEraserMode}
-      />
-      <SideBar onchangeBGColor={handleOnChangeBGColor}
-      onChangeDownloadImage={exportCanvas()=>}/>
+        <div>
+          <SideBar
+            onchangeBGColor={handleOnChangeBGColor}
+            onChangeDownloadImage={exportCanvas}
+          />
+        </div>
+      </div>
     </>
   );
 }
