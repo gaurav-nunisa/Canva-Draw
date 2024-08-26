@@ -36,9 +36,10 @@ export default function Canvas({
 
         if (eraserMode) {
           // ctx.globalCompositeOperation = "destination-out";
-          ctx.strokeStyle = backgroundColor
+          ctx.strokeStyle = backgroundColor;
           ctx.lineWidth = stablePenWidth;
-        }if (!eraserMode) {
+        }
+        if (!eraserMode) {
           // ctx.globalCompositeOperation = "source-over";
           ctx.strokeStyle = stablePenColour;
           ctx.lineWidth = stablePenWidth;
@@ -92,14 +93,23 @@ export default function Canvas({
       canvas.removeEventListener("touchend", endDrawing);
       canvas.removeEventListener("touchmove", draw);
     };
-  }, [parentCanvasRef, stablePenColour, stablePenWidth, eraserMode, backgroundColor]);
+  }, [
+    parentCanvasRef,
+    stablePenColour,
+    stablePenWidth,
+    eraserMode,
+    backgroundColor,
+  ]);
 
   return (
-    <canvas
-      ref={childCanvasRef}
-      height={400}
-      width={600}
-      style={{ border: "1px solid black" }}
-    />
+    <div className="w-full h-full flex justify-center items-center">
+      {" "}
+      <canvas
+        ref={childCanvasRef}
+        height={400}
+        width={600}
+        className= "border border-black w-full max-w-4xl h-auto"
+      />
+    </div>
   );
 }
