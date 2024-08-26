@@ -66,7 +66,7 @@ export default function Canvas({
 
     // Apply background color
     if (backgroundColor) {
-      ctx.fillStyle = backgroundColor;
+      ctx.fillStyle = "white";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -84,6 +84,17 @@ export default function Canvas({
       parentCanvasRef.current = canvas;
     }
 
+
+    function resizeCanvas() {
+      canvas.width = canvas.clientWidth;
+      canvas.height = 400;
+      // Optionally redraw content here
+    }
+
+    // Resize canvas on mount and on window resize
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
     // Cleanup event listeners
     return () => {
       canvas.removeEventListener("mousedown", startDrawing);
@@ -92,6 +103,7 @@ export default function Canvas({
       canvas.removeEventListener("touchstart", startDrawing);
       canvas.removeEventListener("touchend", endDrawing);
       canvas.removeEventListener("touchmove", draw);
+      window.removeEventListener('resize', resizeCanvas);
     };
   }, [
     parentCanvasRef,
@@ -103,12 +115,13 @@ export default function Canvas({
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      {" "}
+  
       <canvas
         ref={childCanvasRef}
-        height={400}
-        width={600}
-        className= "border border-black w-full max-w-4xl h-auto"
+        style={{ border: '1px solid black' }}
+        className="w-full h-full border-2 border-black"
+       
+       
       />
     </div>
   );
